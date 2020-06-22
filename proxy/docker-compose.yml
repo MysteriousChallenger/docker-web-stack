@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+    proxy:
+        container_name: "proxy_${ID}"
+        image: nginx_proxy:1.0
+        ports:
+            - "80:80"
+        networks:
+            front-end:
+                aliases: 
+                    - "proxy_${ID}"
+        restart: always
+        environment: 
+            - NGINX_PORT=80
+            - NGINX_UPSTREAM=web_0:80
+networks: 
+    front-end:
+        external: true

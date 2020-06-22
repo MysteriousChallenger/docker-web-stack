@@ -1,0 +1,16 @@
+version: '3.7'
+
+services: 
+    mezzanine:
+        container_name: "web_${ID}"
+        image: mezzanine:1.0
+        networks:
+            front-end:
+                aliases:
+                    - "web_${ID}"
+        restart: always
+        stop_signal: SIGINT
+
+networks:
+    front-end:
+        external: true

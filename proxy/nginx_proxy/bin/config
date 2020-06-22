@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$1" == "" ]; then
+    echo "Missing new NGINX_UPSTREAM argument"
+    exit 1
+fi
+NGINX_UPSTREAM=$1
+echo "NGINX_UPSTREAM set to $1"
+./docker-entrypoint.d/20-envsubst-on-templates.sh > /dev/null
+echo "nginx config re-generated"
+nginx -s reload &> /dev/null
+wait
+echo "nginx config re-loaded"
